@@ -1,22 +1,18 @@
 plugins {
-    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.kapt)
-    alias(libs.plugins.compose.compiler)
 }
 
 android {
-    namespace = "com.opensource.watertracker"
-    compileSdk = 35
+    namespace = "com.opensource.di"
+    compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.opensource.watertracker"
         minSdk = 24
-        targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -35,27 +31,20 @@ android {
     kotlinOptions {
         jvmTarget = "21"
     }
-    buildFeatures {
-        compose = true
-    }
 }
 
 dependencies {
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.material3)
-    implementation(libs.dagger.android)
-
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
     implementation(libs.androidx.compose.navigation)
+
+
+    implementation(libs.dagger.android)
     kapt(libs.dagger.compiler)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-
-    implementation(project(":core:di"))
 }
